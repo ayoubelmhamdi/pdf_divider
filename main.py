@@ -2,17 +2,20 @@
 
 import os
 import argparse
+
 from pdf2image import convert_from_path
 from PIL import Image
+from tqdm import tqdm
 
-def extract_left_half_from_pdf(pdf_path, output_dir):
-    pages = convert_from_path(pdf_path)
+def extract_half_from_pdf(pdf_path, output_dir):
+    # pages = convert_from_path(pdf_path)
+    pages = convert_from_path(pdf_path, dpi=300, fmt="pnm", thread_count=4)
 
-    for i, page in enumerate(pages):
+    for i, page in tqdm(enumerate(pages)):
         width, height = page.size
 
-        page.crop((0, 0, width//1.75, height)).save(f"{output_dir}/{i+1}_l.png")
-        page.crop((width*5//16, 0, width, height)).save(f"{output_dir}/{i+1}_r.png")
+        page.crop((width//8, 0, width//1.6, height)).save(f"{output_dir}/{i+1}_l.png")
+        page.crop((width//2, 0, width, height)).save(f"{output_dir}/{i+1}_r.png")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Split PDF pages into left and right halves.')
@@ -21,4 +24,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     os.makedirs(args.dir, exist_ok=True)
-    extract_left_half_from_pdf(args.file, args.dir)
+    extract_half_from_pdf(args.file, args.dir)
