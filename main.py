@@ -14,8 +14,8 @@ def extract_half_from_pdf(pdf_path, output_dir):
     for i, page in tqdm(enumerate(pages)):
         width, height = page.size
 
-        page.crop((width//8, 0, width//1.6, height)).save(f"{output_dir}/{i+1}_l.png")
-        page.crop((width//2, 0, width, height)).save(f"{output_dir}/{i+1}_r.png")
+        page.crop((width//8, 0, width//1.6, height)).save(f"{output_dir}/{i+1:04d}_l.png")
+        page.crop((width//2, 0, width, height)).save(f"{output_dir}/{i+1:04d}_r.png")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Split PDF pages into left and right halves.')
