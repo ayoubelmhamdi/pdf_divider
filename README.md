@@ -14,7 +14,7 @@ python3 main.py -f input.pdf -d output/
 
 
 ### INFO:
-To know the `DPI` and `image colors`, we can use this options: `-f` first image is zero and `-l` is last image.
+To know the `DPI` and `image colors`, we can use this options: `-f`, the first image is set to zero and the `-l`  set to the last image.
 
 ```bash
 pdfimages -list ./foo.pdf -f 0 -l 13
